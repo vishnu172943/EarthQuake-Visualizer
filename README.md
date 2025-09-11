@@ -1,7 +1,10 @@
- 🌍 Global Earthquake Visualizer
+                     🌍 Global Earthquake Visualizer
+
 This is a web application that provides a real-time visualization of global earthquake activity. It fetches the latest seismic data from the U.S. Geological Survey (USGS) and presents it in an interactive and user-friendly interface. You can explore recent earthquakes on a world map, view them as a sorted list, and filter them based on your interests.
 
+---------------------------------------------------------------------------------------------
 ✨ Features
+
 This application comes with a range of features to make exploring earthquake data easy and insightful:
 
 Real-Time Data: Fetches up-to-the-minute earthquake data from the USGS.
@@ -20,6 +23,7 @@ User Location: The app can use your location to show your position on the map an
 
 Insightful Statistics: View key stats like the total number of earthquakes, average magnitude, and maximum magnitude for your filtered results.
 
+--------------------------------------------------------------------------------------------
 🛠️ Tech Stack
 This project was built using modern web technologies:
 
@@ -31,6 +35,7 @@ Mapping Library: Leaflet with React Leaflet
 
 Styling: Plain CSS with a modern, responsive design.
 
+---------------------------------------------------------------------------------------------
 🚀 Getting Started
 To get this project up and running on your local machine, follow these simple steps.
 
@@ -58,6 +63,7 @@ Bash
 npm run dev
 The application should now be running at http://localhost:5173.
 
+---------------------------------------------------------------------------------------------
 📖 How to Use
 Once the application is running, you can:
 
