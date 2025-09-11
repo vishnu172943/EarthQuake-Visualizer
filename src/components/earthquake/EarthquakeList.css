@@ -1,0 +1,67 @@
+.list-view {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+.list-header {
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.list-header h3 {
+    font-size: 1.3rem;
+}
+.list-count {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+.earthquake-list {
+    max-height: 600px;
+    overflow-y: auto;
+}
+.earthquake-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.earthquake-item:hover {
+    background: #f5f5f5;
+}
+.earthquake-item:last-child {
+    border-bottom: none;
+}
+.earthquake-mag {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+    margin-right: 15px;
+    flex-shrink: 0;
+    border: 2px solid #333;
+}
+.earthquake-details {
+    flex: 1;
+}
+.earthquake-place {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+.earthquake-meta {
+    font-size: 0.85rem;
+    color: #666;
+}

@@ -1,0 +1,66 @@
+/* Styles for the main control bar in App.jsx */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.time-range-selector,
+.view-toggles {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.time-range-selector label {
+    font-weight: 600;
+    color: #333;
+}
+
+.time-range-selector button,
+.view-toggles button {
+    padding: 8px 16px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.time-range-selector button:hover,
+.view-toggles button:hover {
+    background: #f0f0f0;
+    transform: translateY(-1px);
+}
+
+.time-range-selector button.active,
+.view-toggles button.active {
+    background: #667eea;
+    color: white;
+}
+
+.refresh-btn {
+    padding: 10px 20px;
+    background: #48bb78;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+    background: #38a169;
+    transform: translateY(-1px);
+}

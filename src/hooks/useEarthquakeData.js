@@ -1,0 +1,43 @@
+import { useState, useEffect, useCallback } from 'react';
+
+const API_ENDPOINTS = {
+    all_hour: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson',
+    all_day: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson',
+    all_week: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson',
+    all_month: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson'
+};
+
+export const useEarthquakeData = (initialTimeRange = 'all_day') => {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [timeRange, setTimeRange] = useState(initialTimeRange);
+
+    const fetchData = useCallback(async (range) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(API_ENDPOINTS[range]);
+            if (!response.ok) throw new Error('Failed to fetch earthquake data');
+            const jsonData = await response.json();
+            setData(jsonData.features);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchData(timeRange);
+    }, [fetchData, timeRange]);
+
+    return {
+        earthquakes: data,
+        loading,
+        error,
+        refetch: () => fetchData(timeRange),
+        timeRange,
+        setTimeRange
+    };
+};

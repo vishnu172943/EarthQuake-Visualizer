@@ -1,0 +1,28 @@
+.error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.error-message {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    text-align: center;
+}
+.error-message h3 {
+    color: #e53e3e;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+.error-message p {
+    color: #666;
+    margin-bottom: 10px;
+}
+.error-hint {
+    font-size: 0.9rem;
+    color: #999;
+    font-style: italic;
+}

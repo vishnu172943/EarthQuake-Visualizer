@@ -1,0 +1,48 @@
+.filters-container {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+.filter-group label {
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+}
+.magnitude-slider {
+    width: 200px;
+    cursor: pointer;
+}
+.depth-buttons {
+    display: flex;
+    gap: 5px;
+}
+.depth-buttons button {
+    padding: 6px 12px;
+    border: 1px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+.depth-buttons button:hover {
+    background: #f0f0f0;
+    transform: translateY(-1px);
+}
+.depth-buttons button.active {
+    background: #667eea;
+    color: white;
+}
