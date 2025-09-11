@@ -1,6 +1,6 @@
 {
   "functions": {
-    "src/App.jsx": {
+    "src/hooks/useEarthquakeData.js": {
       "maxDuration": 60
     }
   }
