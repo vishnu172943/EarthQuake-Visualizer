@@ -119,3 +119,187 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* Preload Indicator */
+.preload-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(102, 126, 234, 0.95);
+  padding: 8px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  animation: slideDown 0.3s ease-out;
+}
+
+.preload-bar {
+  width: 200px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.preload-progress {
+  height: 100%;
+  background: white;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.preload-text {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Cache Indicator */
+.cache-indicator {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.cache-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  transition: all 0.3s ease;
+  cursor: help;
+  position: relative;
+}
+
+.cache-dot.cached {
+  background: #48bb78;
+  box-shadow: 0 0 0 2px rgba(72, 187, 120, 0.2);
+}
+
+.cache-dot.active {
+  transform: scale(1.5);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+.cache-dot:hover {
+  transform: scale(1.3);
+}
+
+/* Time range buttons with loading states */
+.time-range-selector button {
+  position: relative;
+  padding-left: 30px;
+}
+
+.time-range-selector button::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+}
+
+.time-range-selector button.loading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.time-range-selector button.loading::before {
+  animation: spin 1s linear infinite;
+}
+
+/* Refresh controls */
+.refresh-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.refresh-btn {
+  padding: 10px 15px;
+  background: #48bb78;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.refresh-btn:hover {
+  background: #38a169;
+  transform: translateY(-1px);
+}
+
+.refresh-btn.refresh-all {
+  background: #667eea;
+}
+
+.refresh-btn.refresh-all:hover {
+  background: #5a67d8;
+}
+
+/* Cache status in footer */
+.footer {
+  position: relative;
+}
+
+.cache-status {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+/* Loading state for time range buttons */
+@keyframes pulse-border {
+  0%, 100% {
+    border-color: #667eea;
+  }
+  50% {
+    border-color: #a0aec0;
+  }
+}
+
+.time-range-selector button.loading {
+  animation: pulse-border 1.5s ease-in-out infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cache-indicator {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+  
+  .preload-indicator {
+    flex-direction: column;
+    padding: 12px;
+  }
+  
+  .preload-bar {
+    width: 90%;
+  }
+  
+  .refresh-controls {
+    width: 100%;
+    justify-content: center;
+  }
+}
