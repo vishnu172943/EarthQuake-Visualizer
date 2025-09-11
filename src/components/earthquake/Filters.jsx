@@ -1,21 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Filters.css';
 
 const Filters = ({ onFilterChange, filters }) => {
+    // Local state to control the slider's value directly
+    const [magnitude, setMagnitude] = useState(filters.minMagnitude);
+
+    // Update the parent component's state only when the local value changes
+    useEffect(() => {
+        onFilterChange({ ...filters, minMagnitude: magnitude });
+    }, [magnitude]);
+
+    // This effect ensures the slider resets if the filters are ever reset from outside
+    useEffect(() => {
+        setMagnitude(filters.minMagnitude);
+    }, [filters.minMagnitude]);
+
     return (
         <div className="filters-container">
             <div className="filter-group">
                 <label htmlFor="magnitude-slider">
-                    Min. Magnitude: {filters.minMagnitude}
+                    Min. Magnitude: {parseFloat(magnitude).toFixed(1)}
                 </label>
                 <input
                     id="magnitude-slider"
                     type="range"
                     min="0"
                     max="8"
-                    step="0.5"
-                    value={filters.minMagnitude}
-                    onChange={(e) => onFilterChange({ ...filters, minMagnitude: parseFloat(e.target.value) })}
+                    step="0.1" // A smaller step for smoother sliding
+                    value={magnitude}
+                    onChange={(e) => setMagnitude(parseFloat(e.target.value))}
                     className="magnitude-slider"
                 />
             </div>
