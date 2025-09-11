@@ -43,20 +43,25 @@ const App = () => {
         }
     }, [showPlates, platesData, setShowPlates]);
 
-    const filteredEarthquakes = useMemo(() => {
-        return earthquakes.filter(eq => {
-            const mag = eq.properties.mag;
-            const depth = eq.geometry.coordinates[2];
-            if (mag < debouncedMinMagnitude) return false;
-            if (filters.depthRange !== 'all') {
-                if (filters.depthRange === 'shallow' && depth > 70) return false;
-                if (filters.depthRange === 'intermediate' && (depth <= 70 || depth > 300)) return false;
-                if (filters.depthRange === 'deep' && depth <= 300) return false;
-            }
-            return true;
-        });
-    }, [earthquakes, debouncedMinMagnitude, filters.depthRange]);
+   // src/App.jsx
 
+const filteredEarthquakes = useMemo(() => {
+    return earthquakes.filter(eq => {
+        const mag = eq.properties.mag;
+        // Add this check to ensure magnitude is a valid number
+        if (mag === null || mag === undefined) {
+            return false;
+        }
+        const depth = eq.geometry.coordinates[2];
+        if (mag < debouncedMinMagnitude) return false;
+        if (filters.depthRange !== 'all') {
+            if (filters.depthRange === 'shallow' && depth > 70) return false;
+            if (filters.depthRange === 'intermediate' && (depth <= 70 || depth > 300)) return false;
+            if (filters.depthRange === 'deep' && depth <= 300) return false;
+        }
+        return true;
+    });
+}, [earthquakes, debouncedMinMagnitude, filters.depthRange]);
     const handleEarthquakeClick = (earthquake) => {
         const [lng, lat] = earthquake.geometry.coordinates;
         setViewMode('map');
