@@ -16,13 +16,28 @@ export const useEarthquakeData = (initialTimeRange = 'all_day') => {
     const fetchData = useCallback(async (range) => {
         setLoading(true);
         setError(null);
+
+        // Create a controller to abort the request if it takes too long
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8-second timeout
+
         try {
-            const response = await fetch(API_ENDPOINTS[range]);
+            const response = await fetch(API_ENDPOINTS[range], {
+                signal: controller.signal // Pass the signal to the fetch request
+            });
+
+            // If the request completes, clear the timeout
+            clearTimeout(timeoutId);
+
             if (!response.ok) throw new Error('Failed to fetch earthquake data');
             const jsonData = await response.json();
             setData(jsonData.features);
         } catch (err) {
-            setError(err.message);
+            if (err.name === 'AbortError') {
+                setError('The request took too long. Please try refreshing the page.');
+            } else {
+                setError(err.message);
+            }
         } finally {
             setLoading(false);
         }
