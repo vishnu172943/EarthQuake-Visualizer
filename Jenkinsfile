@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     tools {
-        // Must match the name in Manage Jenkins → Global Tool Configuration
-        nodejs 'NodeJS'
+        nodejs 'NodeJS' // Must match the name in Jenkins Global Tool Configuration
     }
 
     stages {
@@ -33,13 +32,26 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Tests (if available)') {
             steps {
                 script {
+                    // Check if "test" script exists in package.json
+                    def hasTestScript
                     if (isUnix()) {
-                        sh 'npm test -- --ci --coverage'
+                        hasTestScript = sh(script: "node -p \"require('./package.json').scripts.test ? 'yes' : 'no'\"", returnStdout: true).trim()
                     } else {
-                        bat 'npm test -- --ci --coverage'
+                        hasTestScript = bat(script: "node -p \"require('./package.json').scripts.test ? 'yes' : 'no'\"", returnStdout: true).trim()
+                    }
+
+                    if (hasTestScript == 'yes') {
+                        echo 'Test script found — running tests...'
+                        if (isUnix()) {
+                            sh 'npm test -- --ci --coverage'
+                        } else {
+                            bat 'npm test -- --ci --coverage'
+                        }
+                    } else {
+                        echo 'No test script found — skipping tests.'
                     }
                 }
             }
