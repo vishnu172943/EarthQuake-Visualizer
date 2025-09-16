@@ -79,3 +79,11 @@ On the map, click on any earthquake marker to see a popup with detailed informat
 
 📊 Data Source
 All earthquake data is sourced from the USGS Earthquake Hazards Program. Tectonic plate boundary data is also publicly sourced.
+--------------------------------------------------------------------------------------------------------------------------------------
+
+                                        NOTES 
+->https://docs.google.com/document/d/1mC8T3FOBlp8NgKGNpoMG83Xa6KBdSnWltSf29oBjFG0/edit?usp=sharing
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
