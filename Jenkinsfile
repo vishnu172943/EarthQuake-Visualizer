@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS' // Must match the name in Jenkins Global Tool Configuration
+        // Must match the NodeJS installation name in Jenkins Global Tool Configuration
+        nodejs 'NodeJS'
     }
 
     stages {
@@ -35,23 +36,28 @@ pipeline {
         stage('Run Tests (if available)') {
             steps {
                 script {
-                    // Check if "test" script exists in package.json
                     def hasTestScript
                     if (isUnix()) {
-                        hasTestScript = sh(script: "node -p \"require('./package.json').scripts.test ? 'yes' : 'no'\"", returnStdout: true).trim()
+                        hasTestScript = sh(
+                            script: "node -p \"require('./package.json').scripts.test ? 'yes' : 'no'\"",
+                            returnStdout: true
+                        ).trim()
                     } else {
-                        hasTestScript = bat(script: "node -p \"require('./package.json').scripts.test ? 'yes' : 'no'\"", returnStdout: true).trim()
+                        hasTestScript = bat(
+                            script: "node -p \"require('./package.json').scripts.test ? 'yes' : 'no'\"",
+                            returnStdout: true
+                        ).trim()
                     }
 
                     if (hasTestScript == 'yes') {
-                        echo 'Test script found — running tests...'
+                        echo '✅ Test script found — running tests...'
                         if (isUnix()) {
                             sh 'npm test -- --ci --coverage'
                         } else {
                             bat 'npm test -- --ci --coverage'
                         }
                     } else {
-                        echo 'No test script found — skipping tests.'
+                        echo '⚠ No test script found — skipping tests.'
                     }
                 }
             }
@@ -71,17 +77,30 @@ pipeline {
 
         stage('Archive Production Build') {
             steps {
-                archiveArtifacts artifacts: 'build/**', fingerprint: true
+                script {
+                    // Detect whether dist/ or build/ exists
+                    def outputDir = ''
+                    if (fileExists('dist')) {
+                        outputDir = 'dist/**'
+                    } else if (fileExists('build')) {
+                        outputDir = 'build/**'
+                    } else {
+                        error '❌ No build output folder found (dist/ or build/). Check your build step.'
+                    }
+
+                    echo "📦 Archiving artifacts from: ${outputDir}"
+                    archiveArtifacts artifacts: outputDir, fingerprint: true
+                }
             }
         }
     }
 
     post {
         success {
-            echo '✅ Build completed successfully!'
+            echo '🎉 Pipeline completed successfully!'
         }
         failure {
-            echo '❌ Build failed. Check the logs above.'
+            echo '❌ Pipeline failed. Check the logs above.'
         }
     }
 }
