@@ -1,19 +1,20 @@
 pipeline {
-    agent any 
+    agent any
 
     stages {
-        stage('Build') { 
+        stage('Install Dependencies') {
             steps {
-                 
-                 sh 'npm install'     // for a Node.js project
+                sh 'npm install'
             }
         }
-
         stage('Test') {
             steps {
-                  
-                
-                 sh 'npm test'
+                sh 'npm test -- --ci --coverage' // The --ci flag runs tests in a non-interactive mode
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm run build'
             }
         }
     }
